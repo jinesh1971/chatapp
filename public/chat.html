@@ -2,14 +2,144 @@
 <html>
     <head>
         <title>CHAT APP</title>
-        <link rel="icon" href="/img/favicon.png">  
-        <link rel="stylesheet" href="/css/styles.css">  
+        <link rel="icon" href="favicon.png">  
+        <style>
+            /* General Styles */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                color: #333;
+            }
 
+            .chat {
+                display: flex;
+                height: 100vh;
+            }
+
+            /* Sidebar Styles */
+            .chat__sidebar {
+                width: 25%;
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                padding: 20px;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                overflow-y: auto;
+            }
+
+            .room-title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .list-title {
+                font-size: 1.2rem;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+
+            .users {
+                list-style: none;
+                padding: 0;
+            }
+
+            .users li {
+                margin: 5px 0;
+                padding: 5px;
+                background-color: #34495e;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            /* Main Chat Section */
+            .chat__main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background-color: #ecf0f1;
+            }
+
+            /* Messages Section */
+            .chat__messages {
+                flex: 1;
+                padding: 20px;
+                overflow-y: auto;
+                background-color: #fff;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .message {
+                margin-bottom: 15px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #f1f1f1;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .message__name {
+                font-weight: bold;
+                color: #2c3e50;
+            }
+
+            .message__meta {
+                font-size: 0.8rem;
+                color: #7f8c8d;
+                margin-left: 10px;
+            }
+
+            /* Compose Section */
+            .compose {
+                padding: 10px;
+                background-color: #bdc3c7;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .compose form {
+                flex: 1;
+                display: flex;
+                gap: 10px;
+            }
+
+            .compose input[type="text"] {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 1rem;
+            }
+
+            .compose button {
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .compose button:hover {
+                background-color: #34495e;
+            }
+
+            #send-location {
+                background-color: #27ae60;
+            }
+
+            #send-location:hover {
+                background-color: #2ecc71;
+            }
+        </style>
     </head>
     <body>
         <div class="chat">
 
-            <div id = "sidebar" class="chat__sidebar">
+            <div id="sidebar" class="chat__sidebar">
                 
             </div>
 
@@ -18,8 +148,8 @@
                 
                 <div class="compose">
                     <form id="message-form">
-                        <input name="message" type="text" placeholder = "Type your message here" required autocomplete="off" autocapitalize="on">        
-                        <button id="submitButton"> SEND </button>
+                        <input name="message" type="text" placeholder="Type your message here" required autocomplete="off" autocapitalize="on">        
+                        <button id="submitButton">SEND</button>
                     </form>
             
                     <button id="send-location">Send Location</button>
@@ -45,7 +175,6 @@
                     <span class="message__name">{{username}}</span>
                     <span class="message__meta">{{createdAt}}</span>
                 </p>
-                <!-- blank will open a new window -->
                 <p><a href={{locationURL}} target="_blank">Here's my location</a></p>
             </div>
         </script>
@@ -54,21 +183,11 @@
             <h2 class="room-title">Room: {{room}}</h2>
             <h3 class="list-title">User List</h3>
             <ul class="users">
-
-                <!-- This is the syntax for opening and closing an array in html -->
                 {{#users}}
-                    <li class="individualUser"> {{username}}</li>
+                    <li class="individualUser">{{username}}</li>
                 {{/users}}
             </ul>
-
-
         </script>
-
-
-
-
-
-
 
         <!-- Load the libraries -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
