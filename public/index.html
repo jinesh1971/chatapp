@@ -4,35 +4,41 @@
         <title>New WhatsApp</title>
         <link rel="icon" href="/img/favicon.png">  
         <link rel="stylesheet" href="/css/styles.min.css">  
-
+        <script src="/socket.io/socket.io.js"></script> <!-- Add this here -->
     </head>
     <body>
-            <div class="center-box">
-                <div class="centered-form__box">
-                    <h1>JOIN </h1>
+        <div class="center-box">
+            <div class="centered-form__box">
+                <h1>JOIN</h1>
 
-                    <form action="/chat.html">
-                        <div class="user-box">
-                            <input type="text" name="username" required>
-                            <label>Testing auto deployment Name</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="room" required>
-                            <label>Room</label>
-                        </div>
-                        <div class="blue-box-design">
-                            <a>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <button>SUBMIT</button>
-                            </a>
-                        </div>
-                    </form>
-
-                </div>
+                <form action="/chat.html">
+                    <div class="user-box">
+                        <input type="text" name="username" required>
+                        <label>Display Name</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="text" name="room" required>
+                        <label>Room</label>
+                    </div>
+                    <div class="blue-box-design">
+                        <a>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <button>SUBMIT</button>
+                        </a>
+                    </div>
+                </form>
             </div>
+        </div>
+
+        <script>
+            // Client-side JavaScript to connect to the Socket.IO server
+            const socket = io();
+            socket.on('connect', () => {
+                console.log('coming from index.html, Connected to the server');
+            });
+        </script>
     </body>
-    
 </html>
