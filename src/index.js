@@ -170,6 +170,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.json({ originalName: fileData.originalName, downloadUrl: fileData.downloadUrl });
 });
 
+// Serve uploaded files statically
+app.use('/uploads', express.static(uploadDir));
+
+
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`);
 });
