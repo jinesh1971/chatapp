@@ -7,6 +7,7 @@ const $messageFormInput = $messageForm.querySelector('input')
 const $messageFormButton = $messageForm.querySelector('button')
 
 const $sendLocationButton = document.querySelector('#send-location')
+const $uploadButton = document.querySelector('#upload')
 const $messages = document.querySelector('#messagesDiv')
 const $sidebar = document.querySelector('#sidebar')
 
@@ -117,6 +118,54 @@ $sendLocationButton.addEventListener('click', () => {
             })
     })
 })
+
+$uploadButton.addEventListener('click', () => {
+    //disable
+    $uploadButton.setAttribute('disabled','disabled')
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+
+    fileInput.click();
+
+    fileInput.addEventListener('change', async() => {
+        const file = fileInput.files[0];
+        if (!file) {
+            //Re-enable the button if no file is selected
+            $uploadButton.removeAttribute('disabled')
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('socketId', socket.id); // Include the socket ID
+        formData.append('originalName', file.name); // Include the original file name
+
+        try {
+            //Upload the file to the server
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            
+            console.log("response - ",response);
+            if (response.ok){
+                const data = await response.json();
+                alert(`File uploaded successfully! Download link: /download/${data.fileName}`);
+            } 
+            else {
+                alert('File upload failed');
+            }
+        } catch (error)
+        {
+            console.log('Error uploading file :', error);
+            alert('An error occured while uploading the file');
+        } finally {
+            //Re-enable the upload button after the upload process
+            $uploadButton.removeAttribute('disabled');
+        }
+    });
+});
 
 socket.emit('join',{username, room}, (error) => {
     if (error){
