@@ -171,6 +171,32 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.json({ originalName: fileData.originalName, downloadUrl: fileData.downloadUrl });
 });
 
+
+// File download route
+app.get('/download/:filename', (req, res) => {
+    console.log("req - ",req)
+    console.log("req.params - ",req.params)
+    const filename = req.params.filename;
+    const filePath = path.join(uploadDir, filename);
+
+    console.log('fileName - ', filename);
+    console.log('filePath - ', filePath);
+
+    // Check if the file exists
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).send('File not found.');
+    }
+
+    // Send the file to the client
+    res.download(filePath, filename, (err) => {
+        if (err) {
+            console.error('Error sending file:', err);
+            res.status(500).send('Error downloading the file.');
+        }
+    });
+});
+
+
 // Serve uploaded files statically
 app.use('/uploads', express.static(uploadDir));
 

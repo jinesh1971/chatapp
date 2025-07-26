@@ -168,30 +168,6 @@ $uploadButton.addEventListener('click', () => {
     });
 });
 
-// File download route
-app.get('/download/:filename', (req, res) => {
-    console.log("req - ",req)
-    console.log("req.params - ",req.params)
-    const filename = req.params.filename;
-    const filePath = path.join(uploadDir, filename);
-
-    console.log('fileName - ', filename);
-    console.log('filePath - ', filePath);
-
-    // Check if the file exists
-    if (!fs.existsSync(filePath)) {
-        return res.status(404).send('File not found.');
-    }
-
-    // Send the file to the client
-    res.download(filePath, filename, (err) => {
-        if (err) {
-            console.error('Error sending file:', err);
-            res.status(500).send('Error downloading the file.');
-        }
-    });
-});
-
 socket.emit('join',{username, room}, (error) => {
     if (error){
         alert(error)
