@@ -138,13 +138,14 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const socketId = req.body.socketId; // Retrieve the socket ID from the request body
     const file = req.file; // Get the uploaded file information
     const originalName = req.body.originalName;
-    console.log('File uploaded successfully, url - ',fileData.downloadUrl ,'originalName - ', originalName);
 
 
     const fileData = {
         downloadUrl: `/download/${file.originalname}`,
         originalName: originalName
     };
+    console.log('File uploaded successfully, url - ',fileData.downloadUrl ,'originalName - ', originalName);
+
 
     if (!socketId) {
         console.error('Socket ID is missing');
