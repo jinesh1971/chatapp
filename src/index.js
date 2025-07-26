@@ -5,6 +5,7 @@ const express = require('express')
 const multer = require('multer')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
+const fs = require('fs');
 
 
 // destructe
@@ -13,10 +14,16 @@ const { addUser,  removeUser, getUser, getUsersInRoom } = require('./Utils/users
 
 const app = express()
 
+// Ensure the uploads directory exists
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+
 // Configure multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
         const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
