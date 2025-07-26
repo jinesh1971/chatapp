@@ -152,7 +152,7 @@ $uploadButton.addEventListener('click', () => {
             if (response.ok){
                 const data = await response.json();
                 console.log('data - ',data);
-                alert(`File uploaded successfully! Download link: /download/${data.fileName}`);
+                alert(`File uploaded successfully! Download link: /download/${data.originalName}`);
             } 
             else {
                 alert('File upload failed');
