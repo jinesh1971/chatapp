@@ -179,8 +179,16 @@ app.get('/download/:filename', (req, res) => {
     const filename = req.params.filename;
     const filePath = path.join(uploadDir, filename);
 
-    console.log('fileName - ', filename);
-    console.log('filePath - ', filePath);
+
+    console.log('old fileName - ', filename);
+    console.log('old filePath - ', filePath);
+
+    filename = decodeURIComponent(filename); // Decode filename
+    filePath = path.join(uploadDir, filename); // Construct full file path
+
+
+    console.log('new fileName - ', filename);
+    console.log('new filePath - ', filePath);
 
     // Check if the file exists
     if (!fs.existsSync(filePath)) {
