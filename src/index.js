@@ -176,8 +176,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
 app.get('/download/:filename', (req, res) => {
     console.log("req - ",req)
     console.log("req.params - ",req.params)
-    const filename = req.params.filename;
-    const filePath = path.join(uploadDir, filename);
+    let filename = req.params.filename;
+    let filePath = path.join(uploadDir, filename);
 
 
     console.log('old fileName - ', filename);
